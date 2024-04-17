@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'RF - Pillot') }}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Font Awesome -->
@@ -25,6 +25,160 @@
     </script>
 </head>
 
+<style>
+    /* CSS untuk latar belakang hitam transparan */
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        /* Warna hitam dengan opasitas 0.7 */
+        z-index: 9999;
+        /* Menempatkan latar belakang di atas konten */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    /* Kode CSS untuk animasi spinner yang Anda sebutkan sebelumnya */
+    .lds-roller {
+        display: inline-block;
+        position: relative;
+        width: 80px;
+        height: 80px;
+    }
+
+    .lds-roller div {
+        animation: lds-roller 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+        transform-origin: 40px 40px;
+    }
+
+    .lds-roller div:after {
+        content: " ";
+        display: block;
+        position: absolute;
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: #fff;
+        margin: -4px 0 0 -4px;
+    }
+
+    .lds-roller div:nth-child(1) {
+        animation-delay: -0.036s;
+    }
+
+    .lds-roller div:nth-child(1):after {
+        top: 63px;
+        left: 63px;
+    }
+
+    .lds-roller div:nth-child(2) {
+        animation-delay: -0.072s;
+    }
+
+    .lds-roller div:nth-child(2):after {
+        top: 68px;
+        left: 56px;
+    }
+
+    .lds-roller div:nth-child(3) {
+        animation-delay: -0.108s;
+    }
+
+    .lds-roller div:nth-child(3):after {
+        top: 71px;
+        left: 48px;
+    }
+
+    .lds-roller div:nth-child(4) {
+        animation-delay: -0.144s;
+    }
+
+    .lds-roller div:nth-child(4):after {
+        top: 72px;
+        left: 40px;
+    }
+
+    .lds-roller div:nth-child(5) {
+        animation-delay: -0.18s;
+    }
+
+    .lds-roller div:nth-child(5):after {
+        top: 71px;
+        left: 32px;
+    }
+
+    .lds-roller div:nth-child(6) {
+        animation-delay: -0.216s;
+    }
+
+    .lds-roller div:nth-child(6):after {
+        top: 68px;
+        left: 24px;
+    }
+
+    .lds-roller div:nth-child(7) {
+        animation-delay: -0.252s;
+    }
+
+    .lds-roller div:nth-child(7):after {
+        top: 63px;
+        left: 17px;
+    }
+
+    .lds-roller div:nth-child(8) {
+        animation-delay: -0.288s;
+    }
+
+    .lds-roller div:nth-child(8):after {
+        top: 56px;
+        left: 12px;
+    }
+
+    /* Sisipkan sisa kode CSS untuk animasi spinner di sini */
+
+    @keyframes lds-roller {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+</style>
+
+<div class="pLoading" style="display: none;">
+    <div class="overlay">
+        <div class="lds-roller">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function stopLoading() {
+        var divLoading = document.querySelector(".pLoading");
+        divLoading.style.display = "none";
+    }
+
+    function startLoading() {
+        var divLoading = document.querySelector(".pLoading");
+        divLoading.style.display = "block";
+    }
+    startLoading();
+</script>
+
 <body class="hold-transition sidebar-mini">
     <div class="wrapper">
 
@@ -42,9 +196,9 @@
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
 
-            <a href="index3.html" class="brand-link">
-                <img src="{{ asset('public/assets/dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-                <span class="brand-text font-weight-light">AdminLTE 3</span>
+            <a href="{{ url('dashboard') }}" class="brand-link">
+                <!-- <img src="{{ url('public') }}/jar/html/default/assets/images/PilotLogoRevers.png" alt="Pillot Logo" class="brand-image" style="opacity: .8" height="20"> -->
+                <span class="brand-text font-weight-light">RF Pillot</span>
             </a>
             <!-- Sidebar -->
             <div class="sidebar">
@@ -61,13 +215,9 @@
                 <!-- Sidebar Menu -->
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                        <!-- @foreach (listMenu() as $menu)
+
                         <li class="nav-item">
-                            <a href="{{$menu->url}}" class="nav-link">{{$menu->label}}</a>
-                        </li>
-                        @endforeach -->
-                        <li class="nav-item">
-                            <a href="dashboard" class="nav-link">
+                            <a href="{{ url('dashboard') }}" class="nav-link">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
                                     Dashboard
@@ -75,57 +225,19 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="logout" class="nav-link">
+                            <a href="{{ url('logout') }}" class="nav-link">
                                 <i class="nav-icon far fa-circle "></i>
                                 <p>
                                     Logout
                                 </p>
                             </a>
                         </li>
+                        <li class="nav-header">INTERNAL TRANSFER</li>
                         <li class="nav-item">
-                            <a href="user" class="nav-link">
-                                <i class="nav-icon far fa-circle "></i>
-                                <p>
-                                    User
-                                </p>
+                            <a href="{{ url('internalTransfer/byLocation') }}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>By Location</p>
                             </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="menu" class="nav-link">
-                                <i class="nav-icon far fa-circle "></i>
-                                <p>
-                                    Menu
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon far fa-envelope"></i>
-                                <p>
-                                    Mailbox
-                                    <i class="fas fa-angle-left right"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview" style="display: none;">
-                                <li class="nav-item">
-                                    <a href="pages/mailbox/mailbox.html" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Inbox</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="pages/mailbox/compose.html" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Compose</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="pages/mailbox/read-mail.html" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Read</p>
-                                    </a>
-                                </li>
-                            </ul>
                         </li>
                     </ul>
                 </nav>
@@ -153,8 +265,28 @@
                 Anything you want
             </div>
             <!-- Default to the left -->
-            <strong>Footer &copy; 2024 </strong>
+            <strong>PT. Puninar Yusen Logistics &copy;
+                <script>
+                    document.write(new Date().getFullYear())
+                </script>
+            </strong>
         </footer>
+
+        <!-- <footer class="main-footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="text-center">
+                            <p class="mb-0 text-muted">&copy;
+                                <script>
+                                    document.write(new Date().getFullYear())
+                                </script> PT. Puninar Yusen Logistics
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer> -->
     </div>
 
     <!-- jQuery UI 1.11.4 -->
@@ -162,15 +294,11 @@
     <!-- Bootstrap 4 -->
     <script src="{{ asset('public/assets/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('public/assets/dist/js/adminlte.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            stopLoading();
+        })
+    </script>
 </body>
 
 </html>
-
-@php
-
-function listMenu(){
-$menus = App\Models\Menu::all();
-return $menus;
-}
-
-@endphp

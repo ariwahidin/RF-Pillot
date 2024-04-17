@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donut Chart with Text Inside - ApexCharts</title>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+</head>
+
+<body>
+
+    <div id="apply_jobs"'></div>
+
+    <script>
+
+        var customColors = ['#FF5733', '#FFC300', '#DAF7A6']; // Definisikan warna-warna yang ingin Anda gunakan
+
+        var options = {
+            series: [29],
+            chart: {
+                type: "radialBar",
+                width: 105,
+                sparkline: { enabled: true }
+            },
+            dataLabels: {
+                enabled: false
+            },
+            plotOptions: {
+                radialBar: {
+                    hollow: {
+                        margin: 0,
+                        size: "70%"
+                    },
+                    track: {
+                        margin: 1
+                    },
+                    dataLabels: {
+                        show: true,
+                        name: {
+                            show: false
+                        },
+                        value: {
+                            show: true,
+                            fontSize: "16px",
+                            fontWeight: 600,
+                            offsetY: 8
+                        }
+                    }
+                }
+            },
+            colors: customColors // Gunakan warna-warna yang telah Anda definisikan
+        };
+
+        var chart = new ApexCharts(document.querySelector("#apply_jobs"), options);
+        chart.render();
+
+
+    </script>
+
+    <style>
+        .apexcharts-donut-center {
+            /* position: absolute; */
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            font-size: 24px;
+            color: #4CAF50;
+        }
+    </style>
+</body>
+
+</html>

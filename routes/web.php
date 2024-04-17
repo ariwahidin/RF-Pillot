@@ -4,12 +4,23 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\InternalTransferController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Auth;
 
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
 Route::get('/logout', [LoginController::class, 'logout']);
+
+
+Route::middleware('auth')->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'showDashboard']);
+    Route::get('/internalTransfer/byLocation', [InternalTransferController::class, 'byLocation']);
+    Route::post('/internalTransfer/itemByLocation', [InternalTransferController::class, 'getItemByLocation']);
+    Route::post('/internalTransfer/prosesTransferByLocation', [InternalTransferController::class, 'prosesTransferByLocation']);
+});
+
 
 Route::get('/user', [UserController::class, 'index']);
 Route::get('/user/data', [UserController::class, 'getDataUser']);
@@ -22,7 +33,7 @@ Route::get('/menu', [MenuController::class, 'index']);
 Route::post('/menu/create', [MenuController::class, 'createMenu']);
 Route::get('/menu/data', [MenuController::class, 'getMenu']);
 
-Route::get('/dashboard', [DashboardController::class, 'showDashboard']);
+
 
 
 /*
