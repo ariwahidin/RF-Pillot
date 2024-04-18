@@ -9,6 +9,8 @@ use App\Http\Controllers\MenuController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 
+Route::get('/', [LoginController::class, 'showLoginForm']);
+
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
 Route::get('/logout', [LoginController::class, 'logout']);
@@ -36,6 +38,7 @@ Route::get('/menu/data', [MenuController::class, 'getMenu']);
 
 
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -50,4 +53,4 @@ Route::get('/menu/data', [MenuController::class, 'getMenu']);
 // Route::get('/', function () {
 //     return view('welcome');
 // });
-Route::get('/', [LoginController::class, 'login']);
+// Route::get('/', [LoginController::class, 'login']);
