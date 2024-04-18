@@ -25,19 +25,26 @@ class InternalTransferController extends Controller
 
         $item = Pallet::getItemByLocation($loc);
 
-        $data = array(
-            'lokasi' => $loc,
-            'item' => $item
-        );
+        if (count($item) > 0) {
+            $data = array(
+                'lokasi' => $loc,
+                'item' => $item
+            );
 
-        $response = array(
-            'success' => true,
-            'pallet_id' => Pallet::generatePalletId(),
-            'stock_id' => Stock::generateStockId(),
-            'trans_id' => Trans::generateTransId(),
-            'transfer_id' => Transfer::generateTransferId(),
-            'content' => view('internal_transfer.item_by_location', $data)->render()
-        );
+            $response = array(
+                'success' => true,
+                'pallet_id' => Pallet::generatePalletId(),
+                'stock_id' => Stock::generateStockId(),
+                'trans_id' => Trans::generateTransId(),
+                'transfer_id' => Transfer::generateTransferId(),
+                'content' => view('internal_transfer.item_by_location', $data)->render()
+            );
+        } else {
+            $response =  array(
+                'success' => false,
+                'message' => 'Data not found'
+            );
+        }
 
         return response()->json($response);
     }

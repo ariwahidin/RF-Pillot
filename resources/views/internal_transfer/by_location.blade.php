@@ -55,12 +55,25 @@
                 success: function(response) {
                     stopLoading();
                     if (response.success == true) {
+                        let divToast = $('#divToast');
+                        divToast.empty();
                         let divContent = $('#divItem');
                         divContent.empty();
                         divContent.html(response.content);
                         $('#formTransfer').css('display', 'block');
                         $('#tf_lokasi_asal').val($('#lokasi_asal').val());
-
+                        $('#tf_lokasi_tujuan').val('');
+                    } else {
+                        let divToast = $('#divToast');
+                        divToast.empty();
+                        divToast.html(`<div class="card card-danger">
+                        
+                                                <div class="card-body">
+                                                ${response.message}
+                                                </div>
+                                            </div>`);
+                        $('#divItem').empty();
+                        $('#formTransfer').css('display', 'none');
                     }
                 }
             });
