@@ -9,6 +9,7 @@
                     <th>No.</th>
                     <th>Item Code</th>
                     <th>Avail</th>
+                    <th>Prod Date</th>
                     <th>QA</th>
                 </tr>
             </thead>
@@ -21,6 +22,7 @@
                     <td>{{ $no++ }}</td>
                     <td>{{ $data->item_code }}</td>
                     <td>{{ $data->qty_avail }}</td>
+                    <td style="white-space: nowrap;">{{ $data->expire }}</td>
                     <td>{{ $data->qastatus }}</td>
                 </tr>
                 @endforeach

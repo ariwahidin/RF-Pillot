@@ -220,7 +220,7 @@
                             <a href="{{ url('dashboard') }}" class="nav-link">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
-                                    Dashboard
+                                    Home
                                 </p>
                             </a>
                         </li>
