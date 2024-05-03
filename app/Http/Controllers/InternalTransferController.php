@@ -92,7 +92,7 @@ class InternalTransferController extends Controller
                             'qty_alloc' => $data->qty_alloc + $data->qty_alloc,
                             'qty_avail' =>  $data->qty_avail - $data->qty_avail,
                             'workstatus' => 'is',
-                            'fl' => '',
+                            'fl' => '-',
                         ]);
 
 
