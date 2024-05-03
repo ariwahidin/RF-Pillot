@@ -238,7 +238,7 @@
                                             <label class="form-label" for="password-input">Password</label>
                                             <div class="position-relative auth-pass-inputgroup mb-3">
                                                 <input type="password" name="password" class="form-control pe-5 password-input" placeholder="Enter password" id="password" required>
-                                                <button class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted password-addon" type="submit" id="password-addon"><i class="ri-eye-fill align-middle"></i></button>
+                                                <button class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted password-addon" type="button" id="password-addon"><i class="ri-eye-fill align-middle"></i></button>
                                             </div>
                                         </div>
 
@@ -301,7 +301,7 @@
     <!-- swiper.init js -->
     <!-- <script src="{{ url('public') }}/jar/html/default/assets/js/pages/swiper.init.js"></script> -->
     <!-- password-addon init -->
-    <!-- <script src="{{ url('public') }}/jar/html/default/assets/js/pages/password-addon.init.js"></script> -->
+    <script src="{{ url('public') }}/jar/html/default/assets/js/pages/password-addon.init.js"></script>
 
     <script>
         $(document).ready(function() {

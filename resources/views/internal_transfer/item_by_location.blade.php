@@ -1,9 +1,10 @@
 <div class="card">
     <div class="card-header">
-        <h4 class="card-title">Daftar item di lokasi : {{ $lokasi }}</h4>
+        <h4 class="card-title">Location : {{ $lokasi }}</h4><br>
+        <span>{{ count($item)}} Item found</span>
     </div>
-    <div class="card-body">
-        <table class="table table-sm table-bordered table-striped">
+    <div class="card-body table-responsive">
+        <table class="table table-sm table-bordered table-nowrap table-striped">
             <thead>
                 <tr>
                     <th>No.</th>
@@ -20,7 +21,7 @@
                 @foreach($item as $data)
                 <tr>
                     <td>{{ $no++ }}</td>
-                    <td>{{ $data->item_code }}</td>
+                    <td style="white-space: nowrap;">{{ $data->item_code }}</td>
                     <td>{{ $data->qty_avail }}</td>
                     <td style="white-space: nowrap;">{{ $data->expire }}</td>
                     <td>{{ $data->qastatus }}</td>

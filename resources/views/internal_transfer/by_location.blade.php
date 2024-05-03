@@ -12,7 +12,7 @@
             <div class="col-md-6">
                 <form id="formSearch">
                     <div class="form-group">
-                        <label for="">Lokasi Asal : </label>
+                        <label for="">Lokasi Asal : </label><br>
                         <input type="text" class="form-control-sm" name="lokasi_asal" id="lokasi_asal" required autofocus>
                         <button class="btn btn-sm btn-info">Cari</button>
                     </div>
@@ -20,7 +20,7 @@
 
                 <form style="display: none;" id="formTransfer">
                     <div class="form-group">
-                        <label for="">Lokasi Tujuan : </label>
+                        <label for="">Lokasi Tujuan : </label><br>
                         <input type="hidden" class="form-control-sm" name="tf_lokasi_asal" id="tf_lokasi_asal" required>
                         <input type="text" class="form-control-sm" name="tf_lokasi_tujuan" id="tf_lokasi_tujuan" required>
                         <button class="btn btn-sm btn-success">Prosess</button>
@@ -63,6 +63,7 @@
                         $('#formTransfer').css('display', 'block');
                         $('#tf_lokasi_asal').val($('#lokasi_asal').val());
                         $('#tf_lokasi_tujuan').val('');
+                        $('#tf_lokasi_tujuan').focus();
                     } else {
                         let divToast = $('#divToast');
                         divToast.empty();
@@ -86,23 +87,40 @@
 
         $('#formTransfer').on('submit', function(e) {
             e.preventDefault();
-            startLoading();
-            let lokasi_asal = $('#tf_lokasi_asal').val();
-            let lokasi_tujuan = $('#tf_lokasi_tujuan').val();
-            let formTransfer = $(this).serialize();
 
-            if (lokasi_asal != lokasi_tujuan) {
-                $.ajax({
-                    url: 'prosesTransferByLocation',
-                    type: 'POST',
-                    data: formTransfer,
-                    dataType: 'JSON',
-                    success: function(response) {
-                        stopLoading();
-                        if (response.success == true) {
-                            let divToast = $('#divToast');
-                            divToast.empty();
-                            divToast.html(`<div class="card card-success">
+            if ($('#tf_lokasi_asal').val() === $('#tf_lokasi_tujuan').val()) {
+                Swal.fire({
+                    icon: "error",
+                    title: "Location can not be same!",
+                })
+                return;
+            }
+
+            Swal.fire({
+                icon: "question",
+                title: "Are you sure internal transfer \n from : " + $('#tf_lokasi_asal').val() + " \n to : " + $('#tf_lokasi_tujuan').val(),
+                showCancelButton: true,
+                confirmButtonText: "Yes",
+            }).then((result) => {
+                /* Read more about isConfirmed, isDenied below */
+                if (result.isConfirmed) {
+                    startLoading();
+                    let lokasi_asal = $('#tf_lokasi_asal').val();
+                    let lokasi_tujuan = $('#tf_lokasi_tujuan').val();
+                    let formTransfer = $(this).serialize();
+
+                    if (lokasi_asal != lokasi_tujuan) {
+                        $.ajax({
+                            url: 'prosesTransferByLocation',
+                            type: 'POST',
+                            data: formTransfer,
+                            dataType: 'JSON',
+                            success: function(response) {
+                                stopLoading();
+                                if (response.success == true) {
+                                    let divToast = $('#divToast');
+                                    divToast.empty();
+                                    divToast.html(`<div class="card card-success">
                                                 <div class="card-header">
                                                     <h3 class="card-title">Success</h3>
 
@@ -116,12 +134,12 @@
                                                 ${response.message}
                                                 </div>
                                             </div>`);
-                            $('#divItem').empty();
-                            $('#formTransfer').css('display', 'none');
-                        } else {
-                            let divToast = $('#divToast');
-                            divToast.empty();
-                            divToast.html(`<div class="card card-danger">
+                                    $('#divItem').empty();
+                                    $('#formTransfer').css('display', 'none');
+                                } else {
+                                    let divToast = $('#divToast');
+                                    divToast.empty();
+                                    divToast.html(`<div class="card card-danger">
                                                 <div class="card-header">
                                                     <h3 class="card-title">Error</h3>
 
@@ -135,15 +153,18 @@
                                                 ${response.message}
                                                 </div>
                                             </div>`);
-                            $('#divItem').empty();
-                            $('#formTransfer').css('display', 'none');
-                        }
+                                    $('#divItem').empty();
+                                    $('#formTransfer').css('display', 'none');
+                                }
+                            }
+                        });
+                    } else {
+                        alert('lokasi tidak boleh sama');
                     }
-                });
-            } else {
-                alert('lokasi tidak boleh sama');
-            }
-
+                } else if (result.isDenied) {
+                    Swal.fire("Changes are not saved", "", "info");
+                }
+            });
         })
     });
 </script>

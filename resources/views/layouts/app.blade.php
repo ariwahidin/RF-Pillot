@@ -294,6 +294,7 @@
     <!-- Bootstrap 4 -->
     <script src="{{ asset('public/assets/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('public/assets/dist/js/adminlte.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         $(document).ready(function() {
             stopLoading();
