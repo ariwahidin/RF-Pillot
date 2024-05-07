@@ -239,6 +239,12 @@
                                 <p>By Location</p>
                             </a>
                         </li>
+                        <!-- <li class="nav-item">
+                            <a href="{{ url('internalTransfer/byItem') }}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>By Item</p>
+                            </a>
+                        </li> -->
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->

@@ -21,6 +21,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/internalTransfer/byLocation', [InternalTransferController::class, 'byLocation']);
     Route::post('/internalTransfer/itemByLocation', [InternalTransferController::class, 'getItemByLocation']);
     Route::post('/internalTransfer/prosesTransferByLocation', [InternalTransferController::class, 'prosesTransferByLocation']);
+    Route::post('/internalTransfer/prosesTransfer', [InternalTransferController::class, 'prosesTransfer']);
+    Route::get('/internalTransfer/byItem', [InternalTransferController::class, 'byItem']);
+    Route::post('/internalTransfer/searchByLocAndItem', [InternalTransferController::class, 'searchByLocAndItem']);
 });
 
 
